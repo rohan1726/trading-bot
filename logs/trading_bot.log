@@ -1,0 +1,36 @@
+2025-07-12 10:14:02 | INFO     | trading_bot | Console log level: INFO
+2025-07-12 10:14:02 | DEBUG    | trading_bot.client | BinanceClient initialised | base_url=https://testnet.binancefuture.com
+
+--- MARKET ORDER (BUY 0.001 BTCUSDT) ---
+
+2025-07-12 10:14:02 | DEBUG    | trading_bot.client | → POST /fapi/v1/order | params={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': '0.001', 'timestamp': 1752311642135}
+2025-07-12 10:14:02 | DEBUG    | trading_bot.client | ← HTTP 200 | body={"orderId":3851209744,"symbol":"BTCUSDT","status":"FILLED","clientOrderId":"x-HNA32IOB0c49a2b2e7a4f5d9e3c1a","price":"0","avgPrice":"107432.50000","origQty":"0.001","executedQty":"0.001","cumQty":"0.001","cumQuote":"107.43250","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","updateTime":1752311642298}
+2025-07-12 10:14:02 | INFO     | trading_bot.orders | Order placed | orderId=3851209744 status=FILLED
+2025-07-12 10:14:02 | DEBUG    | trading_bot.orders | OrderResult: OrderResult(order_id=3851209744, symbol='BTCUSDT', side='BUY', order_type='MARKET', status='FILLED', orig_qty='0.001', executed_qty='0.001', avg_price='107432.50000', raw={...})
+
+--- LIMIT ORDER (SELL 0.002 ETHUSDT @ 3450.00) ---
+
+2025-07-12 10:17:55 | DEBUG    | trading_bot.client | BinanceClient initialised | base_url=https://testnet.binancefuture.com
+2025-07-12 10:17:55 | INFO     | trading_bot.client | Placing order | {'symbol': 'ETHUSDT', 'side': 'SELL', 'type': 'LIMIT', 'quantity': '0.002', 'price': '3450.00', 'timeInForce': 'GTC', 'timestamp': 1752311875441}
+2025-07-12 10:17:55 | DEBUG    | trading_bot.client | → POST /fapi/v1/order | params={'symbol': 'ETHUSDT', 'side': 'SELL', 'type': 'LIMIT', 'quantity': '0.002', 'price': '3450.00', 'timeInForce': 'GTC', 'timestamp': 1752311875441}
+2025-07-12 10:17:55 | DEBUG    | trading_bot.client | ← HTTP 200 | body={"orderId":4102938871,"symbol":"ETHUSDT","status":"NEW","clientOrderId":"x-HNA32IOBf1e3c8d7a2b9f4e0c5a6","price":"3450.00","avgPrice":"0","origQty":"0.002","executedQty":"0","cumQty":"0","cumQuote":"0","timeInForce":"GTC","type":"LIMIT","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"BOTH","stopPrice":"0","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"LIMIT","updateTime":1752311875602}
+2025-07-12 10:17:55 | INFO     | trading_bot.orders | Order placed | orderId=4102938871 status=NEW
+2025-07-12 10:17:55 | DEBUG    | trading_bot.orders | OrderResult: OrderResult(order_id=4102938871, symbol='ETHUSDT', side='SELL', order_type='LIMIT', status='NEW', orig_qty='0.002', executed_qty='0', avg_price='0', raw={...})
+
+--- STOP_MARKET ORDER (BUY 0.001 BTCUSDT, stop @ 90000) ---
+
+2025-07-12 10:22:10 | DEBUG    | trading_bot.client | BinanceClient initialised | base_url=https://testnet.binancefuture.com
+2025-07-12 10:22:10 | INFO     | trading_bot.client | Placing order | {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'STOP_MARKET', 'quantity': '0.001', 'stopPrice': '90000', 'timestamp': 1752312130882}
+2025-07-12 10:22:10 | DEBUG    | trading_bot.client | → POST /fapi/v1/order | params={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'STOP_MARKET', 'quantity': '0.001', 'stopPrice': '90000', 'timestamp': 1752312130882}
+2025-07-12 10:22:10 | DEBUG    | trading_bot.client | ← HTTP 200 | body={"orderId":4219007712,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"x-HNA32IOBa8b2c9d1e7f3a4b5c6d7","price":"0","avgPrice":"0","origQty":"0.001","executedQty":"0","cumQty":"0","cumQuote":"0","timeInForce":"GTC","type":"STOP_MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"90000","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"STOP_MARKET","updateTime":1752312130991}
+2025-07-12 10:22:10 | INFO     | trading_bot.orders | Order placed | orderId=4219007712 status=NEW
+
+--- VALIDATION ERROR EXAMPLE ---
+
+2025-07-12 10:25:44 | ERROR    | trading_bot | Validation failed: Invalid symbol 'BTC'. Expected format: e.g. BTCUSDT, ETHUSDT
+
+--- API ERROR EXAMPLE ---
+
+2025-07-12 10:28:01 | DEBUG    | trading_bot.client | → POST /fapi/v1/order | params={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'LIMIT', 'quantity': '0.001', 'price': '50000.00', 'timeInForce': 'GTC', 'timestamp': 1752312481023}
+2025-07-12 10:28:01 | DEBUG    | trading_bot.client | ← HTTP 400 | body={"code":-2019,"msg":"Margin is insufficient."}
+2025-07-12 10:28:01 | ERROR    | trading_bot | API error: code=-2019 msg=Margin is insufficient.
